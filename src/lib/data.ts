@@ -7,6 +7,7 @@ export const locations = [
     connectivity: "Excellent",
     image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
     features: ["High-Speed WiFi", "Meeting Rooms", "Conference Hall", "24/7 Access", "Security"],
+    coordinates: { lat: 28.6914, lng: 77.1613 },
   },
   {
     id: "gurgaon",
@@ -16,6 +17,7 @@ export const locations = [
     connectivity: "Excellent",
     image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&q=80",
     features: ["High-Speed WiFi", "Meeting Rooms", "Premium Conference Hall", "24/7 Access", "Security"],
+    coordinates: { lat: 28.4897, lng: 77.0852 },
   },
 ]
 

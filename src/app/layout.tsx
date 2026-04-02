@@ -1,10 +1,24 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Open_Sans, Karla, Montserrat } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const openSans = Open_Sans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
+const karla = Karla({
+  subsets: ["latin"],
+  variable: "--font-karla",
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-heading",
+});
 
 export const metadata: Metadata = {
   title: "Fume | Top Coworking & Shared Office Spaces in India",
@@ -22,7 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased bg-background`}>
+      <body className={`${openSans.variable} ${karla.variable} ${montserrat.variable} font-sans antialiased bg-background`}>
         <Header />
         <main>{children}</main>
         <Footer />

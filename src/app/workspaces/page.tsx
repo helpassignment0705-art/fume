@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { workspaceTypes } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -28,81 +29,116 @@ const imageMap: Record<string, string> = {
   "virtual-office": "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=400&q=80",
 };
 
-function WorkspaceCard({ workspace, isPopular }: { workspace: typeof workspaceTypes[0]; isPopular: boolean }) {
+function WorkspaceCard({ workspace, isPopular, index }: { workspace: typeof workspaceTypes[0]; isPopular: boolean; index: number }) {
   const icon = iconMap[workspace.icon] || <span className="text-4xl">📍</span>;
   const image = imageMap[workspace.id] || "https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&q=80";
 
   return (
-    <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 h-full flex flex-col">
-      <div className="relative h-48">
-        <Image
-          src={image}
-          alt={workspace.name}
-          fill
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10">
-          <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg">
-            {icon}
-          </div>
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: index * 0.1 }}
+      viewport={{ once: true }}
+    >
+      <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 h-full flex flex-col group border-0">
+        <div className="relative h-48 overflow-hidden">
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.5 }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={image}
+              alt={workspace.name}
+              fill
+              className="object-cover"
+            />
+          </motion.div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+          <motion.div 
+            className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10"
+            whileHover={{ scale: 1.1 }}
+          >
+            <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg">
+              {icon}
+            </div>
+          </motion.div>
         </div>
-      </div>
-      <CardHeader className="flex-grow text-center">
-        {isPopular && (
-          <div className="bg-primary text-white text-xs font-semibold px-3 py-1 rounded-full inline-block mb-2 mx-auto">
-            Popular
+        <CardHeader className="flex-grow text-center">
+          {isPopular && (
+            <motion.div 
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              className="bg-[#d92365] text-white text-xs font-semibold px-3 py-1 rounded-full inline-block mb-2 mx-auto"
+            >
+              Popular
+            </motion.div>
+          )}
+          <CardTitle className="text-xl">{workspace.name}</CardTitle>
+          <CardDescription>{workspace.description}</CardDescription>
+        </CardHeader>
+        <CardContent className="text-center">
+          <div className="mb-4">
+            <span className="text-4xl font-bold text-[#d92365]">{workspace.price}</span>
+            <span className="text-gray-500 ml-1">/{workspace.period}</span>
           </div>
-        )}
-        <CardTitle className="text-xl">{workspace.name}</CardTitle>
-        <CardDescription>{workspace.description}</CardDescription>
-      </CardHeader>
-      <CardContent className="text-center">
-        <div className="mb-4">
-          <span className="text-4xl font-bold text-gray-900">{workspace.price}</span>
-          <span className="text-gray-500 ml-1">/{workspace.period}</span>
-        </div>
-        
-        <ul className="space-y-2 mb-6 text-left">
-          {workspace.features.map((feature) => (
-            <li key={feature} className="flex items-center gap-2 text-sm text-gray-600">
-              <Check className="w-4 h-4 text-primary flex-shrink-0" />
-              {feature}
-            </li>
-          ))}
-        </ul>
+          
+          <ul className="space-y-2 mb-6 text-left">
+            {workspace.features.map((feature, i) => (
+              <motion.li 
+                key={feature} 
+                className="flex items-center gap-2 text-sm text-gray-600"
+                initial={{ opacity: 0, x: -10 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.05 }}
+              >
+                <Check className="w-4 h-4 text-[#d92365] flex-shrink-0" />
+                {feature}
+              </motion.li>
+            ))}
+          </ul>
 
-        <Link href="/contact" className="block">
-          <Button className="w-full bg-primary hover:bg-primary/90 group">
-            Book Now
-            <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Button>
-        </Link>
-      </CardContent>
-    </Card>
+          <Link href="/contact" className="block">
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="w-full bg-[#d92365] hover:bg-[#d92365]/90 text-white px-4 py-2 rounded-md font-medium transition-all"
+            >
+              Book Now
+              <ArrowRight className="ml-2 w-4 h-4 inline" />
+            </motion.button>
+          </Link>
+        </CardContent>
+      </Card>
+    </motion.div>
   );
 }
 
 function TabButton({ 
   active, 
   onClick, 
-  children 
+  children,
+  index
 }: { 
   active: boolean; 
   onClick: () => void; 
-  children: React.ReactNode; 
+  children: React.ReactNode;
+  index: number
 }) {
   return (
-    <button
+    <motion.button
       onClick={onClick}
+      initial={{ opacity: 0, y: -10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.05 }}
       className={`px-8 py-3 font-medium text-sm transition-all rounded-none ${
         active 
-          ? "bg-primary text-white" 
+          ? "bg-[#d92365] text-white" 
           : "bg-gray-100 text-gray-700 hover:bg-gray-200"
       }`}
     >
       {children}
-    </button>
+    </motion.button>
   );
 }
 
@@ -114,66 +150,72 @@ export default function WorkspacesPage() {
 
   return (
     <div className="min-h-screen">
-      <section className="bg-gray-900 text-white py-20">
+      <motion.section 
+        className="bg-gradient-to-r from-[#d92365] to-[#710a73] text-white py-20"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Workspaces</h1>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+          <motion.h1 
+            className="text-4xl md:text-5xl font-bold mb-4"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.1 }}
+          >
+            Workspaces
+          </motion.h1>
+          <motion.p 
+            className="text-xl text-white/90 max-w-2xl mx-auto"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
             Flexible workspace solutions for every need - from hourly meeting rooms to monthly private offices
-          </p>
+          </motion.p>
         </div>
-      </section>
+      </motion.section>
 
       <section className="py-12 bg-white">
         <div className="container mx-auto px-4">
-          <div className="flex justify-center mb-12">
-            <div className="inline-flex border border-gray-300">
-              <TabButton active={activeTab === "all"} onClick={() => setActiveTab("all")}>
+          <motion.div 
+            className="flex justify-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="inline-flex border border-gray-300 overflow-hidden">
+              <TabButton active={activeTab === "all"} onClick={() => setActiveTab("all")} index={0}>
                 All
               </TabButton>
-              <TabButton active={activeTab === "hourly"} onClick={() => setActiveTab("hourly")}>
+              <TabButton active={activeTab === "hourly"} onClick={() => setActiveTab("hourly")} index={1}>
                 Hourly
               </TabButton>
-              <TabButton active={activeTab === "monthly"} onClick={() => setActiveTab("monthly")}>
+              <TabButton active={activeTab === "monthly"} onClick={() => setActiveTab("monthly")} index={2}>
                 Monthly
               </TabButton>
             </div>
-          </div>
+          </motion.div>
 
-          {activeTab === "all" && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {workspaceTypes.map((workspace) => (
+          <AnimatePresence mode="wait">
+            <motion.div 
+              key={activeTab}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            >
+              {(activeTab === "all" ? workspaceTypes : activeTab === "hourly" ? hourlySpaces : monthlySpaces).map((workspace, index) => (
                 <WorkspaceCard 
                   key={workspace.id} 
                   workspace={workspace} 
                   isPopular={workspace.popular || false}
+                  index={index}
                 />
               ))}
-            </div>
-          )}
-
-          {activeTab === "hourly" && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {hourlySpaces.map((workspace) => (
-                <WorkspaceCard 
-                  key={workspace.id} 
-                  workspace={workspace} 
-                  isPopular={false}
-                />
-              ))}
-            </div>
-          )}
-
-          {activeTab === "monthly" && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {monthlySpaces.map((workspace) => (
-                <WorkspaceCard 
-                  key={workspace.id} 
-                  workspace={workspace} 
-                  isPopular={workspace.popular || false}
-                />
-              ))}
-            </div>
-          )}
+            </motion.div>
+          </AnimatePresence>
         </div>
       </section>
     </div>

@@ -4,7 +4,7 @@ import { Phone, MapPin } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="bg-gray-900 text-gray-300">
+    <footer className="bg-gradient-to-r from-[#d92365] to-[#710a73] text-white">
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
@@ -18,20 +18,20 @@ export function Footer() {
               />
               <span className="font-bold text-xl text-white">Fume</span>
             </div>
-            <p className="text-sm text-gray-400 mb-4">
+            <p className="text-sm text-white/80 mb-4">
               Your home office, away from home. Premium coworking spaces in Delhi & Gurgaon.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+              <a href="#" className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors">
                 <span className="text-xs">in</span>
               </a>
-              <a href="#" className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+              <a href="#" className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors">
                 <span className="text-xs">ig</span>
               </a>
-              <a href="#" className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+              <a href="#" className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors">
                 <span className="text-xs">fb</span>
               </a>
-              <a href="#" className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+              <a href="#" className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors">
                 <span className="text-xs">tw</span>
               </a>
             </div>
@@ -40,18 +40,18 @@ export function Footer() {
           <div>
             <h4 className="font-semibold text-white mb-4">Locations</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/locations" className="hover:text-primary transition-colors">Netaji Subhash Palace, Delhi</Link></li>
-              <li><Link href="/locations" className="hover:text-primary transition-colors">Udyog Vihar, Gurgaon</Link></li>
+              <li><Link href="/locations" className="hover:text-white/80 transition-colors">Netaji Subhash Palace, Delhi</Link></li>
+              <li><Link href="/locations" className="hover:text-white/80 transition-colors">Udyog Vihar, Gurgaon</Link></li>
             </ul>
           </div>
           
           <div>
             <h4 className="font-semibold text-white mb-4">Workspaces</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/workspaces" className="hover:text-primary transition-colors">Day Pass</Link></li>
-              <li><Link href="/workspaces" className="hover:text-primary transition-colors">Dedicated Desk</Link></li>
-              <li><Link href="/workspaces" className="hover:text-primary transition-colors">Private Cabin</Link></li>
-              <li><Link href="/workspaces" className="hover:text-primary transition-colors">Meeting Room</Link></li>
+              <li><Link href="/workspaces" className="hover:text-white/80 transition-colors">Day Pass</Link></li>
+              <li><Link href="/workspaces" className="hover:text-white/80 transition-colors">Dedicated Desk</Link></li>
+              <li><Link href="/workspaces" className="hover:text-white/80 transition-colors">Private Cabin</Link></li>
+              <li><Link href="/workspaces" className="hover:text-white/80 transition-colors">Meeting Room</Link></li>
             </ul>
           </div>
           
@@ -67,10 +67,10 @@ export function Footer() {
           </div>
         </div>
         
-        <div className="border-t border-gray-800 mt-12 pt-8">
+        <div className="border-t border-white/20 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-6 text-sm">
-              <a href="tel:+919999999999" className="flex items-center gap-2">
+              <a href="tel:+919999999999" className="flex items-center gap-2 hover:text-white/80">
                 <Phone className="w-4 h-4" />
                 <span>+91-999-999-9999</span>
               </a>
@@ -79,7 +79,7 @@ export function Footer() {
                 <span>Delhi & Gurgaon</span>
               </span>
             </div>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-white/80">
               © 2026 Fume Coworking. All rights reserved.
             </p>
           </div>
